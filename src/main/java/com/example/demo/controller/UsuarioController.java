@@ -41,29 +41,15 @@ public class UsuarioController {
     private SeccionController secController;
 
     @PostMapping("/usuarios/login")
-    public Response login(@RequestBody Usuario u){
+    public Usuario login(@RequestBody Usuario u){
 
         System.out.println(u.toString());
         Usuario user = interUsuario.findUsuarioByMail(u.getMail());
 
         if(user != null && user.getContrasenia().equals(u.getContrasenia())){
-            String KEY = "argProg";
-            long time = System.currentTimeMillis();
-            System.out.println("2");
-            String jwt = Jwts.builder()
-                    .signWith(SignatureAlgorithm.HS256, KEY)
-                    .setSubject(user.getNombre() + " " + user.getApellido())
-                    .setIssuedAt(new Date(time))
-                    .setExpiration(new Date(time+900000))
-                    .claim("mail", user.getMail())
-                    .compact();
-            System.out.println("3");
-            JsonObject json = Json.createObjectBuilder()
-                    .add("JWT", jwt).build();
-            System.out.println("4");
-            return Response.status(Response.Status.CREATED).entity(json).build();
+            return user;
         }
-        return Response.status(Response.Status.UNAUTHORIZED).build();
+        return null;
     }
     
     @GetMapping ("/usuarios/traer")
