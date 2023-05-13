@@ -22,4 +22,5 @@ public class Seccion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idSeccion;
     private String titulo;
+    private Long idUsuario;
 }
