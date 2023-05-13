@@ -7,7 +7,12 @@ package com.example.demo.controller;
 import com.example.demo.dto.UsuarioDTO;
 import com.example.demo.model.Usuario;
 import com.example.demo.service.IUsuarioService;
+
+import java.util.Date;
 import java.util.List;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +22,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -30,6 +39,32 @@ public class UsuarioController {
     
     @Autowired
     private SeccionController secController;
+
+    @PostMapping("/usuarios/login")
+    public Response login(@RequestBody Usuario u){
+
+        System.out.println(u.toString());
+        Usuario user = interUsuario.findUsuarioByMail(u.getMail());
+
+        if(user != null && user.getContrasenia().equals(u.getContrasenia())){
+            String KEY = "argProg";
+            long time = System.currentTimeMillis();
+            System.out.println("2");
+            String jwt = Jwts.builder()
+                    .signWith(SignatureAlgorithm.HS256, KEY)
+                    .setSubject(user.getNombre() + " " + user.getApellido())
+                    .setIssuedAt(new Date(time))
+                    .setExpiration(new Date(time+900000))
+                    .claim("mail", user.getMail())
+                    .compact();
+            System.out.println("3");
+            JsonObject json = Json.createObjectBuilder()
+                    .add("JWT", jwt).build();
+            System.out.println("4");
+            return Response.status(Response.Status.CREATED).entity(json).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build();
+    }
     
     @GetMapping ("/usuarios/traer")
     public List<Usuario> getUsuarios(){

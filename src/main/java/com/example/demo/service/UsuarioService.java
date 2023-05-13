@@ -7,6 +7,8 @@ package com.example.demo.service;
 import com.example.demo.model.Usuario;
 import com.example.demo.dao.UsuarioRepository;
 import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +41,16 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public Usuario findUsuario(Long id) {
         return usuarioRepository.findById(id).orElse(null);
+    }
+
+    public Usuario findUsuarioByMail(String mail){
+        List<Usuario> users = this.getUsuarios();
+
+        for (Usuario u : users) {
+            if(u.getMail().equals(mail)){
+                return u;
+            }
+        }
+        return null;
     }
 }
