@@ -97,9 +97,9 @@ public class UsuarioController {
         return user;
     }
     
-    @GetMapping ("/usuarios/traer/{id}")
-    public UsuarioDTO getUsuario(@PathVariable Long id){
-        Usuario u = interUsuario.findUsuario(id);
+    @GetMapping ("/usuarios/traer/{mail}")
+    public UsuarioDTO getUsuario(@PathVariable String mail){
+        Usuario u = interUsuario.findUsuarioByMail(mail);
         
         UsuarioDTO userDTO = new UsuarioDTO(
                 u.getNombre(), 
