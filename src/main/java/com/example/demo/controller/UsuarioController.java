@@ -57,10 +57,10 @@ public class UsuarioController {
     }
     
     @PostMapping ("/usuarios/crear")
-    public String createUsuario(@RequestBody Usuario u){
+    public Usuario createUsuario(@RequestBody Usuario u){
         interUsuario.saveUsuario(u);
         
-        return "Usuario creado";
+        return u;
     }
     
     @DeleteMapping ("/usuarios/borrar/{id}")
