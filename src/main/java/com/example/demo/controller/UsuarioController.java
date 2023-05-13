@@ -43,7 +43,6 @@ public class UsuarioController {
     @PostMapping("/usuarios/login")
     public Usuario login(@RequestBody Usuario u){
 
-        System.out.println(u.toString());
         Usuario user = interUsuario.findUsuarioByMail(u.getMail());
 
         if(user != null && user.getContrasenia().equals(u.getContrasenia())){
