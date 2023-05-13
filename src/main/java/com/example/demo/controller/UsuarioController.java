@@ -58,6 +58,7 @@ public class UsuarioController {
     
     @PostMapping ("/usuarios/crear")
     public Usuario createUsuario(@RequestBody Usuario u){
+        if(interUsuario.findUsuarioByMail(u.getMail()) != null){return null;}
         interUsuario.saveUsuario(u);
         
         return u;
