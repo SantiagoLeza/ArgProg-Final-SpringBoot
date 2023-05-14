@@ -26,4 +26,9 @@ public class Contenido {
     private String texto;
     private String urlImagen;
     private Long id_seccion;
+
+    @Override
+    public String toString() {
+        return this.idContenido + " | " + this.titulo + " | " + this.texto + " | " + this.urlImagen + " | " + this.id_seccion;
+    }
 }

@@ -49,14 +49,18 @@ public class ContenidoController {
     @PutMapping ("/contenido/editar/{id}")
     public Contenido editContenido(@PathVariable Long id,
             @RequestParam(required = false) String titulo,
-            @RequestParam(required = false) String texto,
+            @RequestParam(required = false) String texto, 
             @RequestParam(required = false) String url_imagen
             ){
         Contenido c = interContenido.findContenido(id);
         
-        c.setTitulo(titulo);
-        c.setTexto(texto);
-        c.setUrlImagen(url_imagen);
+        System.out.println(c);
+        
+        if(titulo != null){c.setTitulo(titulo);}
+        if(texto != null){c.setTexto(texto);}
+        if(url_imagen != null){c.setUrlImagen(url_imagen);}
+        
+        System.out.println(c);
         
         interContenido.saveContenido(c);
         
