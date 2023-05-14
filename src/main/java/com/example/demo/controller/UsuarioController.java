@@ -102,6 +102,7 @@ public class UsuarioController {
         Usuario u = interUsuario.findUsuarioByMail(mail);
         
         UsuarioDTO userDTO = new UsuarioDTO(
+                u.getIdUsuario(),
                 u.getNombre(), 
                 u.getApellido(), 
                 u.getMail(), 

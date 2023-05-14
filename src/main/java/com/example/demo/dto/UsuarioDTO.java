@@ -16,6 +16,7 @@ import lombok.Setter;
  */
 @Getter @Setter
 public class UsuarioDTO implements Serializable {
+    private Long id;
     private String nombre;
     private String apellido;
     private String mail;
@@ -24,7 +25,8 @@ public class UsuarioDTO implements Serializable {
     private String url_imagen;
     private List<SeccionDTO> secciones;
 
-    public UsuarioDTO(String nombre, String apellido, String mail, String ciudad, String pais, String url_imagen, List<SeccionDTO> secciones) {
+    public UsuarioDTO(Long id, String nombre, String apellido, String mail, String ciudad, String pais, String url_imagen, List<SeccionDTO> secciones) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.mail = mail;
