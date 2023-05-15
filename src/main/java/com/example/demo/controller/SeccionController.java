@@ -50,7 +50,7 @@ public class SeccionController {
     public String deleteSeccion(@PathVariable Long id){
         interSeccion.deleteSeccion(id);
         
-        return "Seccion eliminada";
+        return "";
     }
     
     @PutMapping ("/seccion/editar/{id}")

@@ -8,6 +8,7 @@ import com.example.demo.model.Contenido;
 import com.example.demo.service.IContenidoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author santi
  */
+@CrossOrigin(origins = "*")
 @RestController
 public class ContenidoController {
     
@@ -34,6 +36,7 @@ public class ContenidoController {
     
     @PostMapping ("/contenido/crear")
     public String createContenido(@RequestBody Contenido contenido){
+        
         interContenido.saveContenido(contenido);
         
         return "Contenido creado";
@@ -54,11 +57,9 @@ public class ContenidoController {
             ){
         Contenido c = interContenido.findContenido(id);
         
-        System.out.println(c);
-        
-        if(titulo != null){c.setTitulo(titulo);}
-        if(texto != null){c.setTexto(texto);}
-        if(url_imagen != null){c.setUrlImagen(url_imagen);}
+        if(titulo != null && !titulo.equals("")){c.setTitulo(titulo);}
+        if(texto != null && !texto.equals("")){c.setTexto(texto);}
+        if(url_imagen != null && !url_imagen.equals("")){c.setUrlImagen(url_imagen);}
         
         System.out.println(c);
         
